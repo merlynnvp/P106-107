@@ -32,3 +32,47 @@ function speak(){
     var utterThis = new SpeechSynthesisUtterance(speak_data_1 + speak_data_2);
     synth.speak(utterThis);
 }
+
+function check()
+{
+    img = document.getElementById('capture_image');
+    classifier.classify(img, gotResult);
+}
+
+function gotResult(error, results) {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log(results);
+        document.getElementById("hand_gesture_name").innerHTML = results[0].label;
+        document.getElementById("hand_gesture_name2").innerHTML = results[1].label;
+        prediction_1 = results[0].label;
+        prediction_2 = results[1].label;
+        speak();
+        if(results[0].label == "happy")
+        {
+            document.getElementById("update_hand_gesture").innerHTML = "&#128522;";
+        }
+        if(results[0].label == "sad")
+        {
+            document.getElementById("update_hand_gesture").innerHTML = "&#128532;";
+        }
+        if(results[0].label == "angry")
+        {
+            document.getElementById("update_hand_gesture").innerHTML = "&#128548;";
+        }
+
+        if(results[1].label == "happy")
+        {
+            document.getElementById("update_hand_gesture2").innerHTML = "&#128522;";
+        }
+        if(results[1].label == "sad")
+        {
+            document.getElementById("update_hand_gesture2").innerHTML = "&#128532;";
+        }
+        if(results[1].label == "angry")
+        {
+            document.getElementById("update_hand_gesture2").innerHTML = "&#128548;";
+        }
+    }
+}
